@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %} Home {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1>Home</h1>
+            </div>
+            <div class="col-md-6">
+                <div class="d-flex justify-content-end">
+                    <a href="/create-task" class="btn btn-primary">Create Task</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                {% if tasks %}
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Created At</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for task in tasks %}
+                            <tr>
+                                <td>{{ task.task_heading }}</td>
+                                <td>{{ task.task_description }}</td>
+                                <td>{{ user.date_created }}</td>
+                                <td>
+                                    <a href="/edit-task/{{ task.id }}" class="btn btn-primary">Edit</a>
+                                    <a href="{{ url_for('views.delete_task', task_id=task.id) }}" class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <h3>No Tasks Found</h3>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

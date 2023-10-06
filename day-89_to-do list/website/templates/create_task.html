@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %} Add task {% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center"> <!-- Center the entire form -->
+        <div class="col-md-6">
+            <h1 class="text-center">Create Task</h1> <!-- Center the heading -->
+        </div>
+    </div>
+    <div class="row justify-content-center"> <!-- Center the form elements -->
+        <div class="col-md-6">
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="task_heading" class="form-label">Task Heading</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="task_heading"
+                            name="task_heading"
+                            placeholder="Enter task heading..."
+                            required
+                    />
+                </div>
+
+                <div class="mb-3">
+                    <label for="task_description" class="form-label">Task Description</label>
+                    <textarea
+                            class="form-control"
+                            id="task_description"
+                            name="task_description"
+                            placeholder="Enter task description..."
+                            rows="3"
+                            required
+                    ></textarea>
+                </div>
+
+                <!-- Subtask input fields -->
+                <div class="mb-3">
+                    <label for="subtask" class="form-label">Subtasks</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="subtask"
+                            name="subtask"
+                            placeholder="Enter subtask..."
+                    />
+                    <!-- You can allow users to add multiple subtasks dynamically if needed -->
+                </div>
+                <button type="button" class="btn btn-light" id="addSubtask">Add Subtask</button>
+
+                <br>
+                <div class="text-center"> <!-- Center the button -->
+                    <button type="submit" class="btn btn-primary">Create Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const addSubtaskButton = document.getElementById("addSubtask");
+        const subtaskContainer = document.getElementById("subtaskContainer");
+        let subtaskCount = 1;  // Initialize with 1 for the initial subtask field
+
+        addSubtaskButton.addEventListener("click", function () {
+            const newSubtaskInput = document.createElement("div");
+            newSubtaskInput.className = "mb-3";
+            newSubtaskInput.innerHTML = `
+                <label for="subtask${subtaskCount}" class="form-label">Subtask ${subtaskCount + 1}</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    name="subtask${subtaskCount}"
+                    placeholder="Enter subtask..."
+                />`;
+
+            subtaskContainer.appendChild(newSubtaskInput);
+            subtaskCount++;
+        });
+    });
+</script>
+
+{% endblock %}
