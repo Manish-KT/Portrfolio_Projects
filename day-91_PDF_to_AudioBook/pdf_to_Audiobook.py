@@ -13,7 +13,12 @@ window.close()
 # Extract text from PDF file
 pdf_file = values[0]
 
-pdfreader = PyPDF2.PdfReader(pdf_file)
+try:
+    pdfreader = PyPDF2.PdfReader(pdf_file)
+except:
+    print("EOFError")
+    exit()
+
 pages = len(pdfreader.pages)
 
 speaker = pyttsx3.init()
