@@ -52,6 +52,10 @@ for i in range(1, number_of_pages + 1):
 driver.quit()
 
 # Save the data
-df = pd.DataFrame(final_products)
+try:
+    df = pd.DataFrame(final_products[:number_of_products])
+except Exception as e:
+    print("Error while creating dataframe, ", e)
+    df = pd.DataFrame(final_products)
 df.to_csv("products.csv", index=False)
 print("Data saved successfully")
