@@ -30,12 +30,13 @@ def Check_Objects(pix):
 if __name__ == "__main__":
     print("Starting the game...")
     time.sleep(2)
-    k = 0
+    # k = 0 # for saving images
     while True:
         img = ImageGrab.grab().convert('L')
         data = img.load()
 
         Check_Objects(data)
+        """
         for i in range(250, 400):
             for j in range(510, 620):
                 data[i, j] = 0
@@ -48,3 +49,4 @@ if __name__ == "__main__":
         k += 1
         # img.show()
         # break
+        """
